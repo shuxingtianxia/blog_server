@@ -1,22 +1,83 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+
+/* Layout */
+import Layout from '../views/layout/Layout'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '',
+    component: Layout,
+    redirect: 'home',
+    meta: { icon: 'home', title: '概况' },
+    children: [
+      {
+        path: 'home',
+        name: 'home',
+        component: () => import('@/views/Home.vue'),
+        meta: { title: '概况', icon: 'home' }
+      }
+    ]
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/article',
+    component: Layout,
+    meta: { icon: 'home', title: '文章管理' },
+    children: [
+      {
+        path: 'add',
+        name: 'AddArticle',
+        component: () => import('@/views/About.vue'),
+        meta: { title: '添加文章', icon: 'home' }
+      }
+    ]
+  },
+  {
+    path: '/tag',
+    component: Layout,
+    meta: { icon: 'home', title: '标签管理' },
+    children: [
+      {
+        path: 'list',
+        name: 'TagList',
+        component: () => import('../views/About.vue'),
+        meta: { title: '标签列表', icon: 'home' }
+      }
+    ]
+  },
+  {
+    path: '/classify',
+    component: Layout,
+    meta: { icon: 'home', title: '分类管理' },
+    children: [
+      {
+        path: 'add',
+        name: 'AddClassify',
+        component: () => import('../views/About.vue'),
+        meta: { title: '添加分类', icon: 'home' }
+      },
+      {
+        path: 'list',
+        name: 'ClassifyList',
+        component: () => import('../views/About.vue'),
+        meta: { title: '分类列表', icon: 'home' }
+      }
+    ]
+  },
+  {
+    path: '/user',
+    component: Layout,
+    meta: { icon: 'home', title: '用户管理' },
+    children: [
+      {
+        path: 'list',
+        name: 'UserList',
+        component: () => import('../views/About.vue'),
+        meta: { title: '用户列表', icon: 'home' }
+      }
+    ]
   }
 ]
 

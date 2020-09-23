@@ -23,7 +23,7 @@ module.exports = {
     open: true, // 设置 server 启动后是否自动打开浏览器
     historyApiFallback: true,
     hot: true, // 设置代码保存时是否进行热更新（局部刷新，不刷新整个页面）
-    port: 6789,
+    port: 8080,
     host: "localhost",
     inline: true, // 设置代码保存时是否自动刷新页面
     stats: {
