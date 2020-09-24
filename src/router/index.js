@@ -27,6 +27,12 @@ const routes = [
     meta: { icon: 'home', title: '文章管理' },
     children: [
       {
+        path: 'list',
+        name: 'ArticleList',
+        component: () => import('@/views/article/ArticleList.vue'),
+        meta: { title: '文章列表', icon: 'home' }
+      },
+      {
         path: 'add',
         name: 'AddArticle',
         component: () => import('@/views/About.vue'),

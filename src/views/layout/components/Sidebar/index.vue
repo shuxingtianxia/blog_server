@@ -35,8 +35,6 @@ export default {
   computed: {
     ...mapGetters(['sidebar']),
     routers() {
-      console.log(this.$route.path)
-      console.log(this.$router.options.routes)
       return this.$router.options.routes
     }
   }
