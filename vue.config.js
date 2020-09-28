@@ -33,12 +33,13 @@ module.exports = {
       // 匹配代理的url
       "/api": {
         // 目标服务器地址
-        target: "/", // 测试环境
+        target: "http://localhost:6677", // 测试环境
         // 路径重写
         pathRewrite: {
-          // '^/api': ''
+          '^/api': ''
         },
-        changeOrigin: true
+        changeOrigin: true,
+        secure: false
       }
     }
   },

@@ -1,10 +1,11 @@
 import Axios from 'axios'
+import store from '../store'
 
 class httpRequest{
   constructor() {
     this.options = {
       method: '',
-      url
+      url: ''
     }
     // 存储请求队列
     this.queue = {}
@@ -28,19 +29,22 @@ class httpRequest{
     })
     // 添加响应拦截器
     instance.interceptors.response.use(res => {
-      let {data} = res
-      console.log(data)
-      const is = this.destroy(url)
-      console.log(url)
-      if(res.code !== 200) {
-        localStorage.clear()
-        store.dispatch('FedLogOut').then(() => {
-          // router.replace('/')
-          location.reload() // 为了重新实例化vue-router对象 避免bug
-        })
-        return Promise.reject(res)
+      let {data, status} = res
+      console.log(res)
+      if (status === 200) {
+        if(data.code !== 0) {
+          localStorage.clear()
+          store.dispatch('FedLogOut').then(() => {
+            // router.replace('/')
+            location.reload() // 为了重新实例化vue-router对象 避免bug
+          })
+          return Promise.reject(res)
+        }
+        console.log(res.data)
+        return Promise.resolve(res.data)
+      } else {
+        return Promise.reject(data)
       }
-      return Promise.resolve(res)
     }, error => {
       return Promise.reject(error)
     })
@@ -48,7 +52,6 @@ class httpRequest{
   // 创建实例
   create() {
     let conf = {
-      baseURL: 'localhost',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         'X-URL-PATH': location.pathname
@@ -68,3 +71,4 @@ class httpRequest{
     return instance(options)
   }
 }
+export default httpRequest

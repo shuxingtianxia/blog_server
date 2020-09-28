@@ -4,9 +4,9 @@
  * version: ueditor
  * build: Thu Feb 25 2016 11:44:16 GMT+0800 (CST)
  */
-// import { getQiniuToken } from '@/api/common'
-// import * as qiniu from 'qiniu-js'
-// import MD5 from 'js-md5'
+import { getQiniuToken } from '@/api/index'
+import * as qiniu from 'qiniu-js'
+import MD5 from 'js-md5'
 (function(){
 
 // editor.js
@@ -24551,7 +24551,7 @@ UE.plugin.register('simpleupload', function (){
             async function fsSignature(file) {
                 const OSS_URL = me.getOpt('OSS_URL')
                 const res = await _Ajax('post', OSS_URL, {fileName: file})
-                return res.fileUrl
+                return 'http://pic.booktianxia.top/' + res.key
                 // if (res) {
                 //     res.list.key = res.list.dir.toString() + (file.name).toString();
                 //     res.list.imgFile = file;
@@ -24571,7 +24571,6 @@ UE.plugin.register('simpleupload', function (){
                     xhr = new ActiveXObject('Microsoft.XMLHTTP')
                 }
                 requireType = requireType.toUpperCase()
-                console.log(requireType)
                 if (requireType === 'GET' && data) {
                     let index = 0
                     for (const i in data) {
@@ -24585,18 +24584,18 @@ UE.plugin.register('simpleupload', function (){
                     data = null
                 }else {
                     let token = ''
-                    // const res = await getQiniuToken()
+                    const res = await getQiniuToken()
                     const config = {
                         useCdnDomain: true,
-                        // region: qiniu.region.z0
+                        region: qiniu.region.z0
                     }
                     const putExtra = {
                         fname: '',
                         params: {},
                         mimeType: ["image/png", "image/jpeg", "image/gif"]
                     }
-                    if (res.code === '00000') {
-                        token = res.data.uptoken
+                    if (res.code === 0) {
+                        token = res.data
                     } else {
                         this.$message.error(res.message)
                         return
@@ -24612,7 +24611,7 @@ UE.plugin.register('simpleupload', function (){
                     // data = qs.stringify(data);
                     const formData = new FormData()
                     // 传过去oss中的key 需要把目录dir和文件名key拼接起来带过去
-                    // formData.append('key', MD5(data.fileName.name)+Math.random())
+                    formData.append('key', MD5(data.fileName.name)+Math.random())
                     // // policy
                     // formData.append('policy', data.policy)
                     // // accessid

@@ -31,7 +31,7 @@
 
     // OSS_URL OSS地址
     // SSOTOKEN_Name token名字 带在ajax的 Request Headers里面
-    OSS_URL: 'https://upload.qiniup.com/',
+    OSS_URL: 'https://upload-z2.qiniup.com/',
     SSOTOKEN_Name: 'oa_token',
     /**
      * 这里是全部的toolbars类型

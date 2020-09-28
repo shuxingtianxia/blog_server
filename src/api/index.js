@@ -1,12 +1,9 @@
-import axios from '@/libs/api.request'
+import axios from '@/unit/api.request'
 
 // XXXX
-export const getList = (reqBody) => {
+export const getQiniuToken = () => {
   return axios.request({
-    url: ``,
-    data: {
-      args: JSON.stringify(reqBody),
-    },
-    method: 'post'
+    url: `/api/qiniu/getToken`,
+    method: 'get'
   })
 }
