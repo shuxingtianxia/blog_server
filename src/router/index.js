@@ -35,39 +35,20 @@ const routes = [
       {
         path: 'add',
         name: 'AddArticle',
-        component: () => import('@/views/About.vue'),
+        component: () => import('@/views/article/AddArticle.vue'),
         meta: { title: '添加文章', icon: 'home' }
       }
     ]
   },
   {
-    path: '/tag',
-    component: Layout,
-    meta: { icon: 'home', title: '标签管理' },
-    children: [
-      {
-        path: 'list',
-        name: 'TagList',
-        component: () => import('../views/About.vue'),
-        meta: { title: '标签列表', icon: 'home' }
-      }
-    ]
-  },
-  {
-    path: '/classify',
+    path: '/category',
     component: Layout,
     meta: { icon: 'home', title: '分类管理' },
     children: [
       {
-        path: 'add',
-        name: 'AddClassify',
-        component: () => import('../views/About.vue'),
-        meta: { title: '添加分类', icon: 'home' }
-      },
-      {
         path: 'list',
-        name: 'ClassifyList',
-        component: () => import('../views/About.vue'),
+        name: 'CategoryList',
+        component: () => import('../views/category/CategoryList.vue'),
         meta: { title: '分类列表', icon: 'home' }
       }
     ]
@@ -82,6 +63,25 @@ const routes = [
         name: 'UserList',
         component: () => import('@/views/user/UserList'),
         meta: { title: '用户列表', icon: 'home' }
+      }
+    ]
+  },
+  {
+    path: '/personal',
+    component: Layout,
+    meta: { icon: 'home', title: '个人管理' },
+    children: [
+      {
+        path: 'list',
+        name: 'About',
+        component: () => import('@/views/personal/About'),
+        meta: { title: '个人简介', icon: 'home' }
+      },
+      {
+        path: 'list',
+        name: 'AddPersonal',
+        component: () => import('@/views/personal/AddPersonal'),
+        meta: { title: '个人简介', icon: 'home' }
       }
     ]
   }
