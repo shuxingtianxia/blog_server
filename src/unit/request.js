@@ -1,6 +1,8 @@
 import Axios from 'axios'
 import store from '../store'
 
+const BASE_NODE_BUILD = process.env.NODE_BUILD_ENV
+
 class httpRequest{
   constructor() {
     this.options = {
@@ -30,7 +32,6 @@ class httpRequest{
     // 添加响应拦截器
     instance.interceptors.response.use(res => {
       let {data, status} = res
-      console.log(res)
       if (status === 200) {
         if(data.code !== 0) {
           localStorage.clear()
@@ -38,10 +39,9 @@ class httpRequest{
             // router.replace('/')
             location.reload() // 为了重新实例化vue-router对象 避免bug
           })
-          return Promise.reject(res)
+          return Promise.reject(data)
         }
-        console.log(res.data)
-        return Promise.resolve(res.data)
+        return Promise.resolve(data)
       } else {
         return Promise.reject(data)
       }
@@ -65,10 +65,16 @@ class httpRequest{
   // 请求实例
   request (options) {
     var instance = this.create()
+    if (BASE_NODE_BUILD === 'dev') {
+      options.url = '/api' + options.url
+    } else {
+      options.url = '/api' + options.url
+    }
     this.interceptors(instance, options.url)
     options = Object.assign({}, options)
     this.queue[options.url] = instance
     return instance(options)
   }
 }
+
 export default httpRequest

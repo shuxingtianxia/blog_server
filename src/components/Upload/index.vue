@@ -113,7 +113,6 @@ export default {
     //请求后台拿七牛云token
     async getToken() {  //token
       let uploadtoken = await getQiniuToken()
-      console.log(uploadtoken);
       this.QiniuData.token= uploadtoken.data
     },
   }

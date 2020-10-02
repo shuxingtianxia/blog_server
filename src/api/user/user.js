@@ -1,8 +1,8 @@
-import axios from '@/unit/api.request'
+import { request } from '@/unit/api.request'
 
 // XXXX
 export const getQiniuToken = () => {
-  return axios.request({
+  return request({
     url: `/qiniu/getToken`,
     method: 'get'
   })

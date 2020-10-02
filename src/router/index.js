@@ -80,7 +80,7 @@ const routes = [
       {
         path: 'list',
         name: 'UserList',
-        component: () => import('../views/About.vue'),
+        component: () => import('@/views/user/UserList'),
         meta: { title: '用户列表', icon: 'home' }
       }
     ]
