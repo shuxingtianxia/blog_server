@@ -1,9 +1,10 @@
-// import { login, logout, getCurrentManager } from '@/api/common.js'
+import { login, logout } from '@/api/index.js'
+import { Message } from 'element-ui'
 // import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const user = {
   state: {
-    token: '',
+    token: localStorage.getItem('token'),
     name: '',
     avatar: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3790034832,2705828409&fm=26&gp=0.jpg',
     roleType: -1,
@@ -33,26 +34,28 @@ const user = {
 
   actions: {
     // 登录
-    // Login({ commit }, userInfo) {
-    //   // const username = userInfo.username.trim()
-    //   // const { username, password, code, uuid } = userInfo
-    //   return new Promise((resolve, reject) => {
-    //     login(userInfo).then(res => {
-    //       if (res.code === '00000') {
-    //       // if (res.code === 200) {
-    //         const token = 'Bearer ' + res.token
-    //         setToken(token)
-    //         commit('SET_TOKEN', token)
-    //         resolve()
-    //       } else {
-    //         reject(new Error(''))
-    //         Message.error(res.message)
-    //       }
-    //     }).catch(error => {
-    //       reject(error)
-    //     })
-    //   })
-    // },
+    Login({ commit }, userInfo) {
+      console.log(userInfo)
+      // const username = userInfo.username.trim()
+      // const { username, password, code, uuid } = userInfo
+      return new Promise((resolve, reject) => {
+        login(userInfo).then(res => {
+          if (res.code === 0) {
+          // if (res.code === 200) {
+            const token = 'Bearer ' + res.token
+            // setToken(token)
+            commit('SET_TOKEN', token)
+            localStorage.setItem('token', token)
+            resolve()
+          } else {
+            reject(new Error(''))
+            Message.error(res.message)
+          }
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
 
     // 获取用户信息
     // GetUserInfo({ commit, state }) {
@@ -75,18 +78,17 @@ const user = {
     // },
 
     // 登出
-    // LogOut({ commit, state }) {
-    //   return new Promise((resolve, reject) => {
-    //     logout(state.token).then(() => {
-    //       commit('SET_TOKEN', '')
-    //       commit('SET_ROLE_TYPE', -1)
-    //       removeToken()
-    //       resolve()
-    //     }).catch(error => {
-    //       reject(error)
-    //     })
-    //   })
-    // },
+    LogOut({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        logout(state.token).then(() => {
+          commit('SET_TOKEN', '')
+          commit('SET_ROLE_TYPE', -1)
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    }
 
     // 前端 登出
     // FedLogOut({ commit }) {

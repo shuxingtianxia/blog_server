@@ -1,9 +1,18 @@
-import { request } from '@/unit/api.request'
+import axios from '@/unit/api.request'
 
-// XXXX
-export const getQiniuToken = () => {
-  return request({
-    url: `/qiniu/getToken`,
+// 用户列表
+export const getUsers = () => {
+  return axios.request({
+    url: `/admin_users`,
     method: 'get'
+  })
+}
+
+// 删除用户列表
+export const delUsers = (params) => {
+  return axios.request({
+    url: `/admin_users_del`,
+    method: 'get',
+    params
   })
 }

@@ -22,36 +22,16 @@ const routes = [
     ]
   },
   {
-    path: '/article',
-    component: Layout,
-    meta: { icon: 'home', title: '文章管理' },
-    children: [
-      {
-        path: 'list',
-        name: 'ArticleList',
-        component: () => import('@/views/article/ArticleList.vue'),
-        meta: { title: '文章列表', icon: 'home' }
-      },
-      {
-        path: 'add',
-        name: 'AddArticle',
-        component: () => import('@/views/article/AddArticle.vue'),
-        meta: { title: '添加文章', icon: 'home' }
-      }
-    ]
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/login/Login'),
+    meta: { title: '登录', icon: 'home', hidden: true }
   },
   {
-    path: '/category',
-    component: Layout,
-    meta: { icon: 'home', title: '分类管理' },
-    children: [
-      {
-        path: 'list',
-        name: 'CategoryList',
-        component: () => import('../views/category/CategoryList.vue'),
-        meta: { title: '分类列表', icon: 'home' }
-      }
-    ]
+    path: '/register',
+    name: 'Register',
+    component: () => import('@/views/login/Register'),
+    meta: { title: '登录', icon: 'home', hidden: true }
   },
   {
     path: '/user',
@@ -67,6 +47,57 @@ const routes = [
     ]
   },
   {
+    path: '/category',
+    component: Layout,
+    meta: { icon: 'home', title: '分类管理' },
+    children: [
+      {
+        path: 'list',
+        name: 'CategoryList',
+        component: () => import('@/views/category/CategoryList.vue'),
+        meta: { title: '分类列表', icon: 'home' }
+      }
+    ]
+  },
+  {
+    path: '/banner',
+    component: Layout,
+    meta: { title: 'banner管理', icon: 'home' },
+    children: [
+      {
+        path: 'list',
+        name: 'BannerList',
+        component: () => import('@/views/banner/BannerList.vue'),
+        meta: { title: 'banner列表', icon: 'home' }
+      },
+      {
+        path: 'add',
+        name: 'AddBanner',
+        component: () => import('@/views/banner/AddBanner.vue'),
+        meta: { title: '添加banner', icon: 'home' }
+      }
+    ]
+  },
+  {
+    path: '/article',
+    component: Layout,
+    meta: { icon: 'home', title: '文章管理' },
+    children: [
+      {
+        path: 'list',
+        name: 'ArticleList',
+        component: () => import('@/views/article/ArticleList.vue'),
+        meta: { title: '文章列表', icon: 'home' }
+      },
+      {
+        path: 'add/:type/:id',
+        name: 'AddArticle',
+        component: () => import('@/views/article/AddArticle.vue'),
+        meta: { title: '添加文章', icon: 'home' }
+      }
+    ]
+  },
+  {
     path: '/personal',
     component: Layout,
     meta: { icon: 'home', title: '个人管理' },
@@ -78,10 +109,10 @@ const routes = [
         meta: { title: '个人简介', icon: 'home' }
       },
       {
-        path: 'list',
+        path: 'add/:type/:id',
         name: 'AddPersonal',
         component: () => import('@/views/personal/AddPersonal'),
-        meta: { title: '个人简介', icon: 'home' }
+        meta: { title: '添加个人简介', icon: 'home' }
       }
     ]
   }

@@ -28670,7 +28670,7 @@ UE.ui = baidu.editor.ui = {};
                 UE.browser.ie && UE.browser.version === 6 && editor.container.ownerDocument.execCommand("BackgroundImageCache", false, true);
 
                 //display bottom-bar label based on config
-                if (editor.options.elementPathEnabled) {
+                if (editor.options && editor.options.elementPathEnabled) {
                     editor.ui.getDom('elementpath').innerHTML = '<div class="edui-editor-breadcrumb">' + editor.getLang("elementPathTip") + ':</div>';
                 }
                 if (editor.options.wordCount) {

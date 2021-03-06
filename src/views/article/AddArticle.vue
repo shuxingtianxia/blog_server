@@ -1,20 +1,19 @@
 <template>
   <div class="article-list">
     <el-card>
-      <el-form label-width="120px">
-        <el-form-item label="文章标题：">
-          <el-input placeholder="请输入文章标题" style="width: 900px;"></el-input>
+      <el-form label-width="120px" :rules="rules" ref="form" :model="form">
+        <el-form-item label="文章标题：" prop="articleName">
+          <el-input placeholder="请输入文章标题" v-model="form.articleName" style="width: 900px;"></el-input>
         </el-form-item>
-        <el-form-item label="文章分类：">
+        <el-form-item label="文章分类：" prop="articleCategory">
           <el-select v-model="form.articleCategory"  placeholder="请选择文章分类">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
+              <el-option :label="item.title" :value="item._id" v-for="item in options" :key="item._id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="关键字：">
           <el-tag
             :key="tag"
-            v-for="tag in form.tag"
+            v-for="tag in form.dynamicTags"
             closable
             :disable-transitions="false"
             @close="handleClose(tag)">
@@ -32,17 +31,17 @@
           </el-input>
           <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
         </el-form-item>
-        <el-form-item label="文章主图：">
-          <vm-upload></vm-upload>
+        <el-form-item label="文章主图：" prop="articleImgUrl">
+          <vm-upload :fileLists="fileLists" @onComplete="onComplete" @handleRemove="handleRemove"></vm-upload>
         </el-form-item>
-        <el-form-item label="文章简介：">
+        <el-form-item label="文章简介：" prop="articleIntro">
           <el-input type="textarea" v-model="form.articleIntro" style="width: 900px;"></el-input>
         </el-form-item>
-        <el-form-item label="文章内容：">
+        <el-form-item label="文章内容：" prop="articleContent">
           <vm-ue ref="ue" :content.sync="form.articleContent" :config="ueconfig" :max="1000"></vm-ue>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary">确认提交</el-button>
+          <el-button type="primary" @click="saveArticle">确认提交</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -50,33 +49,78 @@
 </template>
 
 <script type="text/javascript">
+import { createdRules } from '@/unit/createRule'
+import * as article from '@/api/article/article'
+import * as category from '@/api/category/category'
 export default {
   data() {
+    const form = {
+      articleName: '',
+      articleCategory: '',
+      dynamicTags: [],
+      articleImgUrl: '',
+      articleIntro: '',
+      articleContent: ''
+    }
     return {
-      form: {
-        articleCategory: '',
-        tag: [],
-        articleIntro: '',
-        articleContent: ''
+      form,
+      rules: {
+        ...createdRules(form)
       },
       inputVisible: false,
       inputValue: '',
       ueconfig: {
         initialFrameWidth: 900,
         initialFrameHeight: 300
-      }
+      },
+      fileLists: [],
+      options: [] // 分类
     }
   },
-  components: {
-
-  },
   created() {
+    const { id, type } = this.$route.params
+    this.id = id
+    this.type = type
+    if (type === 'edit') this.articleDetail()
     this.initUe()
+    this.getCategory()
   },
   methods: {
+    // 获取分类
+    getCategory() {
+      category.getCategory().then(res => {
+        if (res.code === 0) {
+          this.options = res.data
+        }
+      })
+    },
+    // 获取文章详情
+    articleDetail() {
+      article.articleDetail({id: this.id}).then(res => {
+        if (res.code === 0) {
+          this.form = res.data
+          this.initUe()
+          this.fileLists.push({url: res.data.articleImgUrl})
+        }
+      })
+    },
+    // 保存文章
+    saveArticle() {
+      this.$refs.form.validate(valid => {
+        if (valid) {
+          const method = this.type === 'add' ? 'addArticle' : 'updateArticle'
+          article[method](this.form).then(res => {
+            if (res.code === 0) {
+              this.$message.success('添加成功')
+              this.$router.push({ name: 'ArticleList' })
+            }
+          })
+        }
+      })
+    },
     // 可编辑标签
     handleClose(tag) {
-      this.form.tag.splice(this.form.tag.indexOf(tag), 1)
+      this.form.dynamicTags.splice(this.form.tag.indexOf(tag), 1)
     },
 
     showInput() {
@@ -89,7 +133,7 @@ export default {
     handleInputConfirm() {
       const inputValue = this.inputValue
       if (inputValue) {
-        this.form.tag.push(inputValue)
+        this.form.dynamicTags.push(inputValue)
       }
       this.inputVisible = false
       this.inputValue = ''
@@ -99,6 +143,13 @@ export default {
       this.$nextTick(_ => {
         this.$refs.ue.init()
       })
+    },
+    // 删除图片
+    handleRemove() {
+      this.form.articleImgUrl = ''
+    },
+    onComplete(url) {
+      this.form.articleImgUrl = url
     }
   }
 }

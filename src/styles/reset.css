@@ -179,3 +179,9 @@ body {
 html {
   font-size: 14px;
 }
+
+ /* 分页在右边 */
+.el-pagination {
+    margin-top: 20px;
+    text-align: right;
+}

@@ -3,8 +3,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import ELEMENT from 'element-ui'
-
+// 封装组件
+import vmUe from '@/components/Ue'
 import vmUpload from '@/components/Upload'
+import assTable from '@/components/AssTable'
 
 // 引入富文本编辑器的文件
 import '../public/static/ue/ueditor.config'
@@ -12,10 +14,14 @@ import '../public/static/ue/ueditor.all'
 import '../public/static/ue/lang/zh-cn/zh-cn'
 import '../public/static/ue/ueditor.parse.min'
 
-import vmUe from '@/components/Ue'
-Vue.component('vm-ue', vmUe)
+import '@/permission' // 权限
 
+// 富文本编辑器
+Vue.component('vm-ue', vmUe)
+// 七牛云
 Vue.component('vm-upload', vmUpload)
+// 列表
+Vue.component('ass-table', assTable)
 
 if (process.env.NODE_ENV === 'development') {
   require('element-ui/lib/theme-chalk/index.css')
