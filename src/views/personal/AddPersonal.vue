@@ -51,10 +51,10 @@ export default {
   methods: {
     // 关于我详情
     aboutDetail() {
-      about.aboutDetail({id: this.id}).then(res => {
+      about.aboutDetail({ id: this.id }).then(res => {
         if (res.code === 0) {
           this.form = res.data
-          this.fileLists.push({url: res.data.avatar})
+          this.fileLists.push({ url: res.data.avatar })
           this.initUe()
         }
       })
@@ -65,7 +65,7 @@ export default {
       about[method](this.form).then(res => {
         if (res.code === 0) {
           this.$message.success('保存成功')
-          this.$router.push({name: 'About'})
+          this.$router.push({ name: 'About' })
         }
       })
     },

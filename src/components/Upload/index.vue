@@ -63,6 +63,7 @@ export default {
     this.getToken()
   },
   methods: {
+    // 图片删除
     handleRemove(file, fileList) {
       const index = this.fileList.findIndex(item => item.uid === file.uid)
       this.fileList.splice(index, 1)
@@ -73,6 +74,7 @@ export default {
         `当前限制选择 ${this.limit} 张图片，如需更换，请删除上一张图片在重新选择！`
       )
     },
+    // 上传图片之前
     beforeAvatarUpload(file) {
       // 图片上传之前的方法
       const isPNG = file.type === 'image/png'
@@ -92,6 +94,7 @@ export default {
       this.QiniuData.key = `${file.name}`
       console.log(this.QiniuData.key)
     },
+    // 图片上传成功
     uploadSuccess(response, file, fileList) {
       // 图片上传成功的方法
       const result = `${this.qiniuaddr}/${response.key}`

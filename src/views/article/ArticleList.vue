@@ -75,7 +75,7 @@ export default {
       this.$confirm('确定要删除选中文章吗？', '提示', {
         type: 'warning'
       }).then(() => {
-        article.delManyArticle({multipleSelection: this.multipleSelection}).then(res => {
+        article.delManyArticle({ multipleSelection: this.multipleSelection }).then(res => {
           if (res.code === 0) {
             this.$message.success('删除成功')
             this.getArticle()
@@ -83,7 +83,6 @@ export default {
         })
       })
     },
-    // 
     // 全选
     handleSelectionChange(val) {
       this.multipleSelection = val

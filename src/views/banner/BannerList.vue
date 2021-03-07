@@ -21,7 +21,7 @@
 <script type="text/javascript">
 import { getBanner } from '@/api/banner/banner'
 export default {
-  name: "bannerList",
+  name: 'bannerList',
   data() {
     return {
       searchData: {},

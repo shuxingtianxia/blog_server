@@ -1,10 +1,10 @@
 import router from './router'
-import store from './store'
-import { Message } from 'element-ui'
+// import store from './store'
+// import { Message } from 'element-ui'
 
 const whiteList = ['/login', '/register']// 不重定向白名单
 router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('token') ? true : false
+  const token = localStorage.getItem('token')
   if (token) { // 判断是否有token
     next()
     // if (to.path === '/login') {

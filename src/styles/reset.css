@@ -182,6 +182,10 @@ html {
 
  /* 分页在右边 */
 .el-pagination {
-    margin-top: 20px;
-    text-align: right;
+  margin-top: 20px;
+  text-align: right;
+}
+
+#btn {
+  text-align: center;
 }

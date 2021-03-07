@@ -36,7 +36,6 @@ class httpRequest {
     // 添加响应拦截器
     instance.interceptors.response.use(res => {
       const { data, status } = res
-      console.log(res)
       if (status === 200) {
         if (data.code === 0) {
           return Promise.resolve(data)

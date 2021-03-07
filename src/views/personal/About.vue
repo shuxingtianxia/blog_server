@@ -50,7 +50,7 @@ export default {
       this.$confirm('确定要删除该数据吗？', '提示', {
         type: 'warning'
       }).then(() => {
-        about.delAbout({id}).then(res => {
+        about.delAbout({ id }).then(res => {
           if (res.code === 0) {
             this.$message.success('删除成功')
             this.getAbout()

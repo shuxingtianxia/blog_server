@@ -1,17 +1,18 @@
 import axios from '@/unit/api.request'
 
 // 文章列表
-export const getArticle = () => {
+export const getArticle = (params) => {
   return axios.request({
-    url: `/article/admin_article`,
-    method: 'get'
+    url: `/admin_article`,
+    method: 'get',
+    params
   })
 }
 
 // 添加文章
 export const addArticle = (data) => {
   return axios.request({
-    url: `/article/admin_article_add`,
+    url: `/admin_article_add`,
     method: 'post',
     data
   })
@@ -20,7 +21,7 @@ export const addArticle = (data) => {
 // 文章详情
 export const articleDetail = (params) => {
   return axios.request({
-    url: `/article/admin_article_update`,
+    url: `/admin_article_update`,
     method: 'get',
     params
   })
@@ -29,7 +30,7 @@ export const articleDetail = (params) => {
 // 文章详情
 export const updateArticle = (data) => {
   return axios.request({
-    url: `/article/admin_article_update`,
+    url: `/admin_article_update`,
     method: 'post',
     data
   })
@@ -38,7 +39,7 @@ export const updateArticle = (data) => {
 // 删除单个文章
 export const delArticle = (id) => {
   return axios.request({
-    url: `/article/admin_article_del/${id}`,
+    url: `/admin_article_del/${id}`,
     method: 'get'
   })
 }
@@ -46,7 +47,7 @@ export const delArticle = (id) => {
 // 删除多条文章
 export const delManyArticle = (data) => {
   return axios.request({
-    url: `/article/admin_article_del_many`,
+    url: `/admin_article_del_many`,
     method: 'post',
     data
   })

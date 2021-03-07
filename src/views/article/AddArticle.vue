@@ -96,11 +96,11 @@ export default {
     },
     // 获取文章详情
     articleDetail() {
-      article.articleDetail({id: this.id}).then(res => {
+      article.articleDetail({ id: this.id }).then(res => {
         if (res.code === 0) {
           this.form = res.data
           this.initUe()
-          this.fileLists.push({url: res.data.articleImgUrl})
+          this.fileLists.push({ url: res.data.articleImgUrl })
         }
       })
     },

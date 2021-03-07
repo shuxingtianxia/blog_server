@@ -87,7 +87,7 @@ export default {
       type: Object,
       default: () => {
         return {
-          pageSize: 'pageSize', // 每页的数量
+          pageSize: 'size', // 每页的数量
           currentPage: 'page' // 当前页码
         }
       }
@@ -136,8 +136,8 @@ export default {
     // 获取列表数据
     getTableData() {
       const params = { ...this.formData }
-      params[this.pageConfig.currentPage] = this.pagination.currentPage
-      params[this.pageConfig.pageSize] = this.pagination.pageSize
+      params.page = this.pagination.currentPage
+      params.size = this.pagination.pageSize
       this.requestConfig.getTableData(params).then(res => {
         if (res.code === 0) {
           this.tableData = res.data.data || []
