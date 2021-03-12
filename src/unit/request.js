@@ -74,7 +74,7 @@ class httpRequest {
     if (NODE_ENV === 'development') {
       options.url = '/api/server' + options.url
     } else {
-      options.url = '/api' + options.url
+      options.url = '/api/server' + options.url
     }
     this.interceptors(instance, options.url)
     options = Object.assign({}, options)

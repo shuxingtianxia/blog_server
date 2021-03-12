@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import ELEMENT from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 // 封装组件
 import vmUe from '@/components/Ue'
 import vmUpload from '@/components/Upload'

@@ -18,15 +18,13 @@
         </el-table-column>
       </el-table>
     </el-card>
-    <el-dialog :title="form.type === 'add' ? '添加' : '编辑' + '分类名'" :visible.sync="dialog">
-      <el-form label-width="100px" :model="form" ref="form">
-        <el-form-item label="分类名："
-          prop="title"
-          :rules="[
-            { required: true, message: '分类名为空', trigger: 'blur'},
-          ]"
-          >
+    <el-dialog :title="form.type === 'add' ? '添加' : '编辑' + '分类名'" :visible.sync="dialog" width="500px">
+      <el-form label-width="100px" :model="form" ref="form" :rules="rules">
+        <el-form-item label="分类名：" prop="title">
           <el-input placeholder="请输入分类名" style="width: 300px;" v-model="form.title"></el-input>
+        </el-form-item>
+        <el-form-item label="图片">
+          <vm-upload :fileLists="fileLists" @onComplete="onComplete" @handleRemove="handleRemove"></vm-upload>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm(form.type)">{{form.type === 'add' ? '添加' : '编辑'}}</el-button>
@@ -38,14 +36,21 @@
 
 <script type="text/javascript">
 import * as category from '@/api/category/category'
+import { createdRules } from '@/unit/createRule'
 export default {
   data() {
+    const form = {
+      title: '',
+      type: 'add',
+      categoryImage: ''
+    }
     return {
       dialog: false,
       tableData: [],
-      form: {
-        title: '',
-        type: 'add'
+      fileLists: [],
+      form,
+      rules: {
+        ...createdRules(form)
       }
     }
   },
@@ -65,23 +70,27 @@ export default {
     updateCategory(type, row) {
       console.log(row)
       if (type === 'edit') {
-        const { _id, title } = row
+        const { _id, title, categoryImage } = row
         this.form = {
           _id,
           title,
           type
         }
+        this.fileLists.push({ url: categoryImage })
       } else {
         this.form = {
           _id: '',
           title: '',
           type
         }
+        this.fileLists = []
       }
       this.dialog = true
     },
     // 添加分类
     submitForm(type) {
+      console.log('this.$refs.form', this.$refs.form)
+      console.log('this.form', this.form)
       this.$refs.form.validate(valid => {
         if (valid) {
           console.log(this.form)
@@ -109,6 +118,14 @@ export default {
           }
         })
       })
+    },
+    // 图片上传
+    onComplete(result) {
+      this.form.categoryImage = result
+    },
+    // 图片删除
+    handleRemove() {
+      this.form.categoryImage = ''
     }
   }
 }

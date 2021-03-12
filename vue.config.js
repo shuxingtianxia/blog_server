@@ -7,7 +7,7 @@ const resolve = dir => {
 }
 
 module.exports = {
-  publicPath: process.env.NODE_ENV === "production" ? "/production-sub-path/" : "/",
+  publicPath: process.env.NODE_ENV === "production" ? "/" : "/",
   chainWebpack: config => {
     config.resolve.alias
       .set("@@", resolve("src")) // key,value自行定义，比如.set('@@', resolve('src/components'))
@@ -33,7 +33,7 @@ module.exports = {
       // 匹配代理的url
       "/api": {
         // 目标服务器地址
-        target: "http://localhost:6677", // 测试环境
+        target: "http://booktianxia.top:6677", // 测试环境
         // 路径重写
         pathRewrite: {
           '^/api': ''

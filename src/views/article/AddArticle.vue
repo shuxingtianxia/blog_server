@@ -5,8 +5,8 @@
         <el-form-item label="文章标题：" prop="articleName">
           <el-input placeholder="请输入文章标题" v-model="form.articleName" style="width: 900px;"></el-input>
         </el-form-item>
-        <el-form-item label="文章分类：" prop="articleCategory">
-          <el-select v-model="form.articleCategory"  placeholder="请选择文章分类">
+        <el-form-item label="文章分类：" prop="categoryId">
+          <el-select v-model="form.categoryId"  placeholder="请选择文章分类">
               <el-option :label="item.title" :value="item._id" v-for="item in options" :key="item._id"></el-option>
           </el-select>
         </el-form-item>
@@ -38,7 +38,7 @@
           <el-input type="textarea" v-model="form.articleIntro" style="width: 900px;"></el-input>
         </el-form-item>
         <el-form-item label="文章内容：" prop="articleContent">
-          <vm-ue ref="ue" :content.sync="form.articleContent" :config="ueconfig" :max="1000"></vm-ue>
+          <vm-ue ref="ue" :content.sync="form.articleContent" :config="ueconfig"></vm-ue>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="saveArticle">确认提交</el-button>
@@ -56,7 +56,7 @@ export default {
   data() {
     const form = {
       articleName: '',
-      articleCategory: '',
+      categoryId: '',
       dynamicTags: [],
       articleImgUrl: '',
       articleIntro: '',

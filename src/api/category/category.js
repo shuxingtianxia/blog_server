@@ -3,7 +3,7 @@ import axios from '@/unit/api.request'
 // 查询分类列表
 export const getCategory = () => {
   return axios.request({
-    url: `/article/admin_category`,
+    url: `/admin_category`,
     method: 'get'
   })
 }
@@ -11,7 +11,7 @@ export const getCategory = () => {
 // 添加分类
 export const addCategory = (data) => {
   return axios.request({
-    url: `/article/admin_add`,
+    url: `/admin_add`,
     method: 'post',
     data
   })
@@ -20,7 +20,7 @@ export const addCategory = (data) => {
 // 编辑分类
 export const editCategory = (data) => {
   return axios.request({
-    url: `/article/admin_edit`,
+    url: `/admin_edit`,
     method: 'post',
     data
   })
@@ -29,7 +29,7 @@ export const editCategory = (data) => {
 // 编辑分类
 export const delCategory = (id) => {
   return axios.request({
-    url: `/article/admin_del/${id}`,
+    url: `/admin_del/${id}`,
     method: 'get'
   })
 }

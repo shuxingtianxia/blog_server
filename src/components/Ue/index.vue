@@ -26,7 +26,7 @@ export default {
     },
     max: {
       type: Number,
-      default: 10000
+      default: 10000000
     }
   },
   data() {
